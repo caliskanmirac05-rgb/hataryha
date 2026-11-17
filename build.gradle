@@ -1,0 +1,62 @@
+plugins {
+    id 'net.fabricmc.fabric-loom' version '1.17.+'
+    id 'maven-publish'
+    id 'java'
+}
+
+version = project.mod_version
+group   = project.maven_group
+
+base { archivesName = project.archives_base_name }
+
+repositories {
+    maven { url = "https://maven.fabricmc.net/" }
+    mavenCentral()
+    maven { url = "https://jitpack.io" }
+}
+
+loom {
+    mods {
+        "ryha-client" {
+            sourceSet sourceSets.main
+        }
+    }
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    // MC 26.1+ is fully unobfuscated — no mappings block needed.
+    // modImplementation does NOT exist in net.fabricmc.fabric-loom for 26.x;
+    // use plain implementation / runtimeOnly instead.
+    implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    // MixinExtras is required for @ModifyReturnValue used in several mixin classes
+    implementation "io.github.llamalad7:mixinextras-fabric:0.4.1"
+    annotationProcessor "io.github.llamalad7:mixinextras-fabric:0.4.1"
+}
+
+processResources {
+    inputs.property "version", project.version
+    filteringCharset "UTF-8"
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
+}
+
+java {
+    toolchain { languageVersion = JavaLanguageVersion.of(project.java_version as int) }
+    withSourcesJar()
+}
+
+jar {
+    // LICENSE is optional — only bundle it if present
+    def licenseFile = rootProject.file("LICENSE")
+    if (licenseFile.exists()) {
+        from(licenseFile) { rename { "${it}_${project.base.archivesName.get()}" } }
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.release = project.java_version as int
+    options.encoding = "UTF-8"
+}

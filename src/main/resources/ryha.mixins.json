@@ -1,0 +1,23 @@
+{
+  "required": true,
+  "package": "com.ryha.client.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "client": [
+    "inject.GameRendererMixin",
+    "inject.ClientPlayerEntityMixin",
+    "inject.MinecraftClientMixin",
+    "inject.KeyboardMixin",
+    "inject.ClientPlayerInteractionManagerMixin",
+    "inject.WorldRendererMixin",
+    "inject.LivingEntityMixin",
+    "inject.EntityMixin",
+    "inject.PlayerEntityMixin",
+    "inject.GameOptionsMixin",
+    "accessor.GameRendererAccessor",
+    "accessor.MinecraftClientAccessor",
+    "accessor.ClientPlayerEntityAccessor"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

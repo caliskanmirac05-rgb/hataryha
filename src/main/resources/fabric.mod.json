@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "id": "ryha_client",
+  "version": "${version}",
+  "name": "RyHa Client",
+  "description": "Professional modular cheat client for Minecraft Java Edition",
+  "authors": ["RyHa Team"],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/ryha/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": ["com.ryha.client.RyHaClient"]
+  },
+  "mixins": ["ryha.mixins.json"],
+  "depends": {
+    "fabricloader": ">=0.19.3",
+    "minecraft": "~26.2",
+    "java": ">=25",
+    "fabric-api": "*"
+  }
+}
